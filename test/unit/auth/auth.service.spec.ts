@@ -5,7 +5,6 @@ import { UsersModule } from '../../../src/users/users.module';
 import { AuthService } from '../../../src/auth/auth.service';
 import { EnvConfig } from '../../../src/common/config/env';
 import { JwtStrategy } from '../../../src/auth/strategies/jwt.strategy';
-import { LocalStrategy } from '../../../src/auth/strategies/local.strategy';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -17,10 +16,10 @@ describe('AuthService', () => {
         PassportModule,
         JwtModule.register({
           secret: EnvConfig.JWT_SECRET,
-          signOptions: { expiresIn: '1h' },
+          signOptions: { expiresIn: '24h' },
         }),
       ],
-      providers: [AuthService, LocalStrategy, JwtStrategy],
+      providers: [AuthService, JwtStrategy],
     }).compile();
 
     service = moduleRef.get<AuthService>(AuthService);
@@ -41,22 +40,22 @@ describe('validateUser', () => {
         PassportModule,
         JwtModule.register({
           secret: EnvConfig.JWT_SECRET,
-          signOptions: { expiresIn: '1h' },
+          signOptions: { expiresIn: '24h' },
         }),
       ],
-      providers: [AuthService, LocalStrategy, JwtStrategy],
+      providers: [AuthService, JwtStrategy],
     }).compile();
 
     service = moduleRef.get<AuthService>(AuthService);
   });
 
   it('should return a user object when credentials are valid', async () => {
-    const res = await service.validateUser('maria', 'guess');
+    const res = await service.validateUser({ email: 'maria', password: 'guess'});
     expect(res.userId).toEqual(3);
   });
 
   it('should return null when credentials are invalid', async () => {
-    const res = await service.validateUser('xxx', 'xxx');
+    const res = await service.validateUser({ email: 'xxx', password: 'xxx'});
     expect(res).toBeNull();
   });
 });
@@ -71,10 +70,10 @@ describe('validateLogin', () => {
         PassportModule,
         JwtModule.register({
           secret: EnvConfig.JWT_SECRET,
-          signOptions: { expiresIn: '1h' },
+          signOptions: { expiresIn: '24h' },
         }),
       ],
-      providers: [AuthService, LocalStrategy, JwtStrategy],
+      providers: [AuthService, JwtStrategy],
     }).compile();
 
     service = moduleRef.get<AuthService>(AuthService);
