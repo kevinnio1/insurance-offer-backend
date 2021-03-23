@@ -1,15 +1,12 @@
 import { HttpStatus } from "@nestjs/common";
 import { ErrorDetails } from "./service.exception";
 
-
-
 export enum ErrorCodes {
     VALUE_CAR_TO_LOW = "VALUE_CAR_TO_LOW",
     DRIVER_TO_YOUNG = "DRIVER_TO_YOUNG",
     DRIVER_TO_YOUNG_FOR_PORSCHE = "DRIVER_TO_YOUNG_FOR_PORSCHE",
     UNKNOWN_ERROR = "UNKNOWN_ERROR",
 }
-
 
 export const ServiceErrors: {
     [key in ErrorCodes]: ErrorDetails;
