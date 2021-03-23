@@ -20,4 +20,9 @@ export class EnvConfig {
 
     //JWT
     public static JWT_SECRET = process.env["JWT_SECRET"] || "";
+
+    //MONGODB
+    public static MONGO_DB_URI = process.env["MONGO_DB_URI"] || "";
+    public static MONGO_DB_NAME = process.env["MONGO_DB_NAME"] || "";
+
 }

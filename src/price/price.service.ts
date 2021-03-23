@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ServiceErrors } from 'src/common/exceptions/errors';
-import { ServiceException } from 'src/common/exceptions/service.exception';
+import { ServiceErrors } from '../common/exceptions/errors';
+import { ServiceException } from '../common/exceptions/service.exception';
 import { GetPriceDTO } from './models/getPrice.dto';
 import { PriceRequestAnswer } from './models/priceRequestAnswer';
 
