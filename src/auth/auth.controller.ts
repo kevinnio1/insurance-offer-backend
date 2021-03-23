@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller,Post, UnauthorizedException } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
@@ -26,10 +26,11 @@ export class AuthController {
         
         const validatedUser = await this.authService.validateUser(loginFormValues);
 
-        if (validatedUser) {
-            return this.authService.login(validatedUser);
+        if (!validatedUser) {
+           throw new UnauthorizedException();
         }
-        return null;
+
+        return this.authService.login(validatedUser);;
     }
 
 }

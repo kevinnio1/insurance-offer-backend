@@ -7,12 +7,9 @@ import { PriceRequestAnswer } from './models/priceRequestAnswer';
 @Injectable()
 export class PriceService {
   async getPrice(getPriceDTO: GetPriceDTO): Promise<PriceRequestAnswer> {
-    try {
-      if (this.isPriceRequestValid(getPriceDTO)) {
-        return this.calculatePrices(getPriceDTO);
-      }
-    } catch (error) {
-      return error;
+   
+    if (this.isPriceRequestValid(getPriceDTO)) {
+      return this.calculatePrices(getPriceDTO);
     }
 
     return null;
@@ -29,15 +26,15 @@ export class PriceService {
     switch (getPriceDTO.car.toUpperCase()) {
       case 'AUDI':
         calculatedPrices.globalPrice = 250;
-        calculatedPrices.universalPrice = (250 + (0.003 * priceCar));
+        calculatedPrices.universalPrice = 250 + 0.003 * priceCar;
         break;
       case 'BMW':
         calculatedPrices.globalPrice = 150;
-        calculatedPrices.universalPrice = (150 + (0.004 * priceCar));
+        calculatedPrices.universalPrice = 150 + 0.004 * priceCar;
         break;
       case 'PORSCHE':
         calculatedPrices.globalPrice = 500;
-        calculatedPrices.universalPrice = (500 + (0.007 * priceCar));
+        calculatedPrices.universalPrice = 500 + 0.007 * priceCar;
         break;
       default:
         break;

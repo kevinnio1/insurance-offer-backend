@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EnvConfig } from './common/config/env';
 import { AppController } from './app.controller';
+import { ServiceExceptionFilter } from './common/serviceExceptionFilter';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -19,6 +21,10 @@ import { AppController } from './app.controller';
   ],
   controllers: [
     AppController
-  ]
+  ],
+  providers: [{
+		provide: APP_FILTER,
+		useClass: ServiceExceptionFilter
+	}]
 })
 export class AppModule {}
